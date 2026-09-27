@@ -1,6 +1,6 @@
-View: vw_pedidos_completos — consolidando pedido, cliente, agregados de pagamentos e itens
-********************************************************************************/
+/* View: vw_pedidos_completos — consolidando pedido, cliente, agregados de pagamentos e itens */
 -- Pergunta: Criar uma view que consolide as informações principais por pedido.
+
 CREATE OR REPLACE VIEW "vw_pedidos_completos" AS
 SELECT
 p."pedido_id",
@@ -34,9 +34,8 @@ array_agg(DISTINCT "seller_id") AS sellers
 FROM "Itens"
 GROUP BY "order_id"
 ) it ON p."pedido_id" = it."order_id";
-/********************************************************************************
-2) View: vw_avaliacoes_categoria — nota média e volume de avaliações por categoria
-********************************************************************************/
+
+/* 2) View: vw_avaliacoes_categoria — nota média e volume de avaliações por categoria */
 -- Pergunta: Criar view com volume e média de avaliações por categoria.
 CREATE OR REPLACE VIEW "vw_avaliacoes_categoria" AS
 SELECT
