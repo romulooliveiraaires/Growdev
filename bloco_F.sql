@@ -1,6 +1,6 @@
-CTE: faturamento mensal por estado + variação percentual mês a mês
-********************************************************************************/
+/* CTE: faturamento mensal por estado + variação percentual mês a mês */
 -- Pergunta: Como varia o faturamento mês a mês por estado?
+
 WITH faturamento_mensal AS (
 SELECT
 c."customer_state" AS customer_state,
@@ -23,10 +23,10 @@ ROUND(
 , 2) AS variacao_percentual
 FROM faturamento_mensal
 ORDER BY customer_state, ano, mes;
-/********************************************************************************
-2) CTE: volume de avaliações e nota média por categoria (filtrar volume relevante)
-********************************************************************************/
+
+/* 2) CTE: volume de avaliações e nota média por categoria (filtrar volume relevante) */
 -- Pergunta: Quais categorias têm pior reputação considerando volume relevante?
+
 WITH avaliacoes_por_categoria AS (
 SELECT
 pr."product_category_name",
@@ -35,8 +35,7 @@ ROUND(AVG(a."review_score")::numeric, 2) AS nota_media
 FROM "Avaliacoes" a
 JOIN "Itens" it ON a."order_id" = it."order_id"
 JOIN "Produtos" pr ON it."product_id" = pr."product_id"
-GROUP BY pr."product_category_name"
-)
+GROUP BY pr."product_category_name")
 SELECT
 product_category_name,
 volume_avaliacoes,
@@ -46,10 +45,9 @@ WHERE volume_avaliacoes >= 50 -- ajuste este limite conforme necessidade
 ORDER BY nota_media ASC, volume_avaliacoes DESC
 LIMIT 50;
 
-/********************************************************************************
-3) CTE: frete médio por estado e comparação com média geral
-********************************************************************************/
+/* 3) CTE: frete médio por estado e comparação com média geral */
 -- Pergunta: Cada estado tem frete médio acima / abaixo da média geral?
+
 WITH frete_estado AS (
 SELECT
 c."customer_state",
