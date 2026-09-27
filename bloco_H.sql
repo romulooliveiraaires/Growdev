@@ -1,7 +1,7 @@
-1) Função: fn_metricas_vendedor_simples(data_inicio, data_fim)
-   Retorna faturamento, ticket médio e nota média por vendedor no período.
-********************************************************************************/
+/* 1) Função: fn_metricas_vendedor_simples(data_inicio, data_fim)
+   Retorna faturamento, ticket médio e nota média por vendedor no período. */
 -- Pergunta: Para cada vendedor, qual faturamento, ticket médio e nota média no período?
+
 CREATE OR REPLACE FUNCTION "fn_metricas_vendedor_simples"(p_data_inicio timestamp, p_data_fim timestamp)
 RETURNS TABLE(
   seller_id varchar,
@@ -58,11 +58,10 @@ ORDER BY COALESCE(f.faturamento, 0) DESC;
 $$;
 
 
-/********************************************************************************
-2) Função: sp_relatorio_vendedor(categoria, data_inicio, data_fim)
-   Retorna faturamento total e ticket médio da categoria no período (alocação proporcional).
-********************************************************************************/
+/* 2) Função: sp_relatorio_vendedor(categoria, data_inicio, data_fim)
+   Retorna faturamento total e ticket médio da categoria no período (alocação proporcional). */
 -- Pergunta: Para a categoria X, qual o faturamento total e ticket médio no período?
+
 CREATE OR REPLACE FUNCTION "sp_relatorio_vendedor"(
   p_categoria text,
   p_data_inicio timestamp,
