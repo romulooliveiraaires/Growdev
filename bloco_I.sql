@@ -1,6 +1,6 @@
-Ranking (RANK()) dos vendedores por faturamento dentro de cada estado
-********************************************************************************/
+/* Ranking (RANK()) dos vendedores por faturamento dentro de cada estado */
 -- Pergunta: Qual a posição de cada vendedor no faturamento dentro do seu estado?
+
 SELECT
 fs."seller_state",
 fs."seller_id",
@@ -18,10 +18,10 @@ GROUP BY "order_id"
 GROUP BY v."seller_id", v."seller_state"
 ) fs
 ORDER BY fs."seller_state", ranking_estado;
-/********************************************************************************
-2) Faturamento mensal acumulado por vendedor (SUM(...) OVER (ORDER BY ...))
-********************************************************************************/
+
+/* 2) Faturamento mensal acumulado por vendedor (SUM(...) OVER (ORDER BY ...)) */
 -- Pergunta: Como evolui o faturamento acumulado mês a mês por vendedor?
+
 WITH pagamentos_por_pedido AS (
 SELECT "order_id", SUM("payment_value")::numeric AS total_payment
 FROM "Pagamentos"
@@ -62,9 +62,7 @@ ROUND(SUM(faturamento) OVER (PARTITION BY seller_id ORDER BY mes_ref),2) AS fatu
 FROM faturamento_mensal
 ORDER BY seller_id, mes_ref;
 
-/********************************************************************************
-3) Percentual de participação de cada vendedor no faturamento total do seu estado
-********************************************************************************/
+/* 3) Percentual de participação de cada vendedor no faturamento total do seu estado */
 -- Pergunta: Qual a participação percentual do vendedor no faturamento do seu estado?
 WITH pagamentos_por_pedido AS (
 SELECT "order_id", SUM("payment_value")::numeric AS total_payment
@@ -106,9 +104,7 @@ ROUND(100::numeric * faturamento / NULLIF(SUM(faturamento) OVER (PARTITION BY se
 FROM faturamento_seller_state
 ORDER BY seller_state, participacao_percentual DESC;
 
-/********************************************************************************
-4) Variação de faturamento de um mês para o outro por vendedor (LAG)
-********************************************************************************/
+/* 4) Variação de faturamento de um mês para o outro por vendedor (LAG) */
 -- Pergunta: Quanto variou o faturamento de um mês para o outro por vendedor?
 WITH pagamentos_por_pedido AS (
 SELECT "order_id", SUM("payment_value")::numeric AS total_payment
