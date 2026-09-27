@@ -1,5 +1,4 @@
-Clientes cujo gasto total está acima da média geral de gasto por cliente
-********************************************************************************/
+/* Clientes cujo gasto total está acima da média geral de gasto por cliente */
 -- Pergunta: Quais clientes gastaram mais que a média de todos os clientes?
 SELECT
 c."customer_id",
@@ -19,9 +18,8 @@ GROUP BY p2."cliente_id"
 ) s
 )
 ORDER BY gasto_total DESC;
-/********************************************************************************
-2) Produtos que nunca receberam avaliação (NOT EXISTS)
-********************************************************************************/
+
+/* 2) Produtos que nunca receberam avaliação (NOT EXISTS) */
 -- Pergunta: Quais produtos não têm nenhuma avaliação associada?
 SELECT
 pr."product_id",
@@ -34,9 +32,7 @@ JOIN "Avaliacoes" a ON it."order_id" = a."order_id"
 WHERE it."product_id" = pr."product_id"
 );
 
-/********************************************************************************
-3) Vendedores que venderam produtos de mais de 5 categorias diferentes
-********************************************************************************/
+/* 3) Vendedores que venderam produtos de mais de 5 categorias diferentes */
 -- Pergunta: Quais vendedores venderam em mais de 5 categorias distintas?
 SELECT
 v."seller_id"
@@ -48,9 +44,7 @@ JOIN "Produtos" pr ON it."product_id" = pr."product_id"
 WHERE it."seller_id" = v."seller_id"
 ) > 5;
 
-/********************************************************************************
-4) Pedidos cujo frete é maior que o valor total dos itens do pedido
-********************************************************************************/
+/* 4) Pedidos cujo frete é maior que o valor total dos itens do pedido */
 -- Pergunta: Quais pedidos têm custo de frete total maior que o total dos itens?
 SELECT
 it."order_id",
