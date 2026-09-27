@@ -1,5 +1,4 @@
-Classificar pedidos por prazo de entrega
-********************************************************************************/
+/* Classificar pedidos por prazo de entrega */
 -- Pergunta: Cada pedido foi adiantado, no prazo ou atrasado?
 SELECT
 "pedido_id",
@@ -12,9 +11,8 @@ WHEN "datahora_entrega" = "estimativa_entrega_pedido" THEN 'no prazo'
 WHEN "datahora_entrega" > "estimativa_entrega_pedido" THEN 'atrasado'
 END AS classificacao_entrega
 FROM "Pedidos";
-/********************************************************************************
-2) Classificar clientes por faixa de gasto total: bronze/prata/ouro
-********************************************************************************/
+
+/* 2) Classificar clientes por faixa de gasto total: bronze/prata/ouro */
 -- Pergunta: Em qual faixa de gasto cada cliente se encaixa?
 SELECT
 c."customer_id",
@@ -31,9 +29,7 @@ JOIN "Pagamentos" pg ON p."pedido_id" = pg."order_id"
 GROUP BY c."customer_id"
 ORDER BY gasto_total DESC;
 
-/********************************************************************************
-3) Classificar produtos por faixa de peso
-********************************************************************************/
+/* 3) Classificar produtos por faixa de peso */
 -- Pergunta: Produtos são leves, médios ou pesados?
 SELECT
 "product_id",
@@ -47,9 +43,7 @@ END AS faixa_peso
 FROM "Produtos"
 ORDER BY "product_weight_g" DESC;
 
-/********************************************************************************
-4) Classificar pagamentos como à vista / parcelado e sinalizar parcelado longo
-********************************************************************************/
+/* 4) Classificar pagamentos como à vista / parcelado e sinalizar parcelado longo */
 -- Pergunta: Pagamentos são à vista, parcelado curto ou parcelado longo (>6 parcelas)?
 SELECT
 "order_id",
